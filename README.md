@@ -88,3 +88,119 @@ GridView.count(
 - The `ShopCard` widget is used to create each button. It takes a `ShopItem` as a parameter and creates a Material button with an icon, text, and a specific background color. When a button is tapped, it shows a Snackbar with a message indicating which button was clicked.
 dart
 
+# Assignment 7
+
+## Answers
+
+### Explain the difference between `Navigator.push()` and `'Navigator.pushReplacement()`, accompanied by examples of the correct usage of both methods!
+
+- `Navigator.push()` and `Navigator.pushReplacement()` are methods in Flutter used for navigating between different screens (routes). They differ in how they handle the navigation stack.
+
+#### `Navigator.push()`:
+
+- Description: Adds a new route to the navigation stack.
+- Usage: Typically used when you want to move forward to a new screen and allow users to navigate back to the previous screen.
+```
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SecondScreen()),
+);
+```
+
+In this example, the SecondScreen is added to the stack, and the user can go back to the original screen using the system back button or a custom back button.
+
+#### `Navigator.pushReplacement()`:
+
+- Description: Replaces the current route in the stack with a new route.
+- Usage: Used when you want to navigate to a new screen and replace the current screen, preventing the user from going back to the original screen.
+```
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => NewScreen()),
+);
+```
+In this example, the NewScreen replaces the current screen in the stack. If the user tries to go back, they will be taken to the screen before the original one.
+
+### Explain each layout widget in Flutter and their respective usage contexts!
+
+`Scaffold`:
+
+- Usage Context: The Scaffold widget is a basic structural layout widget in Flutter that provides a visual structure for your app. It typically includes an app bar, a body, and optional floating action buttons, bottom navigation bars, and drawers. The drawer is often included within the Scaffold for global navigation.
+```
+Scaffold(
+  appBar: AppBar(
+    title: Text('My App'),
+  ),
+  body: // Your main content goes here,
+  drawer: Drawer(
+    // Drawer content goes here,
+  ),
+)
+```
+
+`Drawer`:
+
+- Usage Context: The Drawer widget is specifically designed for creating a slide-in menu or sidebar. It is often used to house navigation options, settings, or other secondary content.
+```
+Drawer(
+  child: // Drawer content goes here,
+)
+```
+
+`ListView`:
+
+- Usage Context: The ListView widget is commonly used to display a scrolling list of items. In the context of a drawer, it can be used to list various navigation options or categories.
+```
+Drawer(
+  child: ListView(
+    children: [
+      // List items go here
+    ],
+  ),
+)
+```
+
+`Column`:
+
+- Usage Context: The Column widget is used to arrange its children in a vertical column. It's often employed to structure the content within the drawer.
+```
+Drawer(
+  child: Column(
+    children: [
+      // Column children go here
+    ],
+  ),
+)
+```
+
+`Expanded`:
+
+- Usage Context: The Expanded widget is used within a Column or Row to give a child widget the maximum available space along the main axis. It's useful for ensuring that a certain widget, such as a container or list, takes up all available space within the drawer.
+```
+Drawer(
+  child: Column(
+    children: [
+      // Other widgets
+      Expanded(
+        child: // Widget taking up remaining space
+      ),
+    ],
+  ),
+)
+```
+
+### List the form input elements you used in this assignment and explain why you used these input elements!
+
+-  In my app, i use `TextFormField` as an input element for the name, amount, and description of the product
+
+- Why?, They provide a structured way for users to input information while ensuring data integrity through validation.
+
+### How is clean architecture implemented in a Flutter application?
+- Clean Architecture acts as a roadmap for building a modular system, sticking to the separation of concerns design principle. It's all about breaking down the software into different layers, making it easier to both develop and take care of the system. With these well-separated layers, you can reuse specific parts and work on them independently, making the development and updating process more straightforward. 
+
+- This structure separates concerns, making the codebase more modular and testable. It also allows for easier maintenance and adaptation to changes, as each layer is independent of the others.
+
+- Reference : [An Introduction to Flutter Clean Architecture](https://medium.com/ruangguru/an-introduction-to-flutter-clean-architecture-ae00154001b0)
+
+
+### Explain how you implemented the checklist above step-by-step! (not just following the tutorial)
