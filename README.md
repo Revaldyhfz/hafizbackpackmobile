@@ -88,7 +88,7 @@ GridView.count(
 - The `ShopCard` widget is used to create each button. It takes a `ShopItem` as a parameter and creates a Material button with an icon, text, and a specific background color. When a button is tapped, it shows a Snackbar with a message indicating which button was clicked.
 dart
 
-# Assignment 7
+# Assignment 8
 
 ## Answers
 
@@ -204,3 +204,160 @@ Drawer(
 
 
 ### Explain how you implemented the checklist above step-by-step! (not just following the tutorial)
+
+1. Use at least three input elements: name, amount, description. Add input elements according to the model in your Django assignment.
+  - i created a file named `shoplist_form.dart` where it manages the form page on adding items,
+  
+  - i added a `form` widget to encapsulate the form and manage its state
+```
+  body: Form(
+  key: _formKey,
+  child: SingleChildScrollView(
+    child: Column(
+      // ... form fields and buttons ...
+    ),
+  ),
+),
+```
+
+  - Three `TextFormField` widgets are used for entering the product name, amount, and description.
+```
+  TextFormField(
+  decoration: InputDecoration(
+    hintText: "Product Name",
+    labelText: "Product Name",
+    // ... other decoration properties ...
+  ),
+  onChanged: (String? value) {
+    // ... update _name ...
+  },
+  validator: (String? value) {
+    // ... validation logic ...
+  },
+),
+// Similar TextFormField widgets for amount and description
+
+```
+
+  - Validation logic is defined for each `TextFormField` to ensure that the entered data meets specific criteria.
+```
+validator: (String? value) {
+  if (value == null || value.isEmpty) {
+    return "Name cannot be empty!";
+  }
+  // ... additional validation rules ...
+  return null;
+},
+
+```
+  - The "Save" button is an `ElevatedButton` triggering form validation and displaying an `AlertDialog` upon successful validation.
+```
+ElevatedButton(
+  onPressed: () {
+    if (_formKey.currentState!.validate()) {
+      // ... show AlertDialog and reset form ...
+    }
+  },
+  // ... button styling and text ...
+),
+
+```
+
+2. Direct users to the new item addition form page when clicking the Add Item button on the main page.
+  - i added this routing to left_drawer.dart
+```
+ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('Home Page'),
+            // redirect to MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyHomePage(),
+                  ));
+            },
+          ),
+```
+
+3. Create a drawer in the application
+  - i added `left_drawer.dart` file
+  - inside the file, i added some codes, here are some major parts inside the file
+  1. `Drawer Widget`
+    - The Drawer widget is the root container for the drawer. It contains a list of items that represent the navigation options.
+```
+return Drawer(
+  child: ListView(
+    children: [
+      // ... drawer items ...
+    ],
+  ),
+);
+
+```
+  2. `DrawerHeader`
+    - The DrawerHeader widget represents the header section of the drawer. It typically contains a decoration, such as a background color, and child widgets like Text to display a title.
+```
+const DrawerHeader(
+  decoration: BoxDecoration(
+    color: Colors.indigo,
+  ),
+  child: Column(
+    children: [
+      // ... title and additional text ...
+    ],
+  ),
+),
+```
+
+  3. `Title and Additional Text` :
+    - The title and additional text displayed in the DrawerHeader provide a brief description or branding for your app.
+
+```
+Text(
+  'Hafiz Backpack',
+  textAlign: TextAlign.center,
+  style: TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+),
+
+// ... additional text ...
+```
+
+  4. `ListTile Widgets`:
+    - ListTile widgets represent individual items in the drawer. Each ListTile has a leading icon, a title, and an onTap function to handle user interaction.
+```
+ListTile(
+  leading: const Icon(Icons.home_outlined),
+  title: const Text('Home Page'),
+  onTap: () {
+    // ... navigate to MyHomePage ...
+  },
+),
+ListTile(
+  leading: const Icon(Icons.add_shopping_cart),
+  title: const Text('Add Product'),
+  onTap: () {
+    // ... navigate to ShopFormPage ...
+  },
+),
+```
+
+  5. `Navigation using Navigator`:
+    - The onTap function of each ListTile uses the Navigator class to navigate to a different page when the corresponding item is selected.
+```
+onTap: () {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => MyHomePage(), // or ShopFormPage
+    ),
+  );
+},
+```
+
+
+
