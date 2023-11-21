@@ -358,6 +358,85 @@ onTap: () {
   );
 },
 ```
+# Assignment 8
 
+## Answers
 
+### Can we retrieve JSON data without creating a model first? If yes, is it better than creating a model before retrieving JSON data?
 
+- Retrieving JSON data doesn't always need a model. JSON is a simple format for data exchange, easily handled by programming languages without machine learning. Using libraries or built-in functions, you can parse and work with JSON in your code. However, if we're dealing with more complex tasks, like natural language processing, a machine learning model might be useful. Creating a model requires expertise, resources, and data. Decide based on the task—simple data manipulation may not need a model, while complex tasks might benefit from one.
+
+### Explain the function of CookieRequest and explain why a CookieRequest instance needs to be shared with all components in a Flutter application.
+
+- ` CookieRequest ` likely handles HTTP cookies in Flutter. Sharing an instance across components ensures consistent cookie management, preventing issues that could arise from decentralized handling.
+
+### Explain the mechanism of fetching data from JSON until it can be displayed on Flutter.
+- To fetch and display data from JSON in Flutter:
+
+  1. Use an HTTP client to request JSON data from an API.
+  2. Parse the JSON data using the `dart:convert ` library.
+  3. Create Dart model classes to represent the data structure.
+  4. Convert the parsed JSON data into instances of the model classes.
+  5. Use Flutter widgets to display the data in the user interface.
+  6. Optionally, employ state management solutions for dynamic data updates.
+
+### Explain the authentication mechanism from entering account data on Flutter to Django authentication completion and the display of menus on Flutter.
+1. User Input in Flutter:
+
+  - Users enter credentials in the Flutter app.
+
+2. Sending Credentials to Django:
+
+  - Flutter sends a POST request to Django with user credentials.
+
+3. Django Authentication:
+
+  - Django authenticates and sends an authentication token.
+
+4. Token Handling in Flutter:
+
+  - Flutter securely stores the token for future requests.
+
+5. Displaying Menus in Flutter:
+
+  - Authenticated Flutter app fetches user-specific data, like menus, from Django.
+
+6. Dynamic Menu Display:
+
+  - Flutter dynamically displays menus based on the received data.
+
+### List all the widgets you used in this assignment and explain their respective functions.
+
+1. LoginApp and LoginPage (login.dart):
+
+  - LoginApp sets up the initial login page.
+  - LoginPage handles user authentication.
+  - Uses the CookieRequest instance to send login requests to the Django backend.
+  - Navigates to the main content page (ProductPage) upon successful login.
+
+2. ProductPage (list_product.dart):
+
+  - Displays a list of products fetched from the Django backend.
+  - Utilizes the http package for making HTTP requests to get product data.
+  - Uses FutureBuilder for asynchronous data fetching.
+  - Renders the product data dynamically in a ListView.
+
+3. shop_card.dart:
+
+  - Represents a card in the main interface.
+  - Handles navigation to different pages, including the product page.
+
+4. LeftDrawer and LeftDrawerMenu (left_drawer.dart):
+
+  - LeftDrawer is a stateless widget representing the left drawer of the app.
+  - LeftDrawerMenu represents menu items, including navigation to the product page and logout functionality.
+
+5. Logout Integration (left_drawer.dart):
+
+  - Handles the logout functionality when the user taps on the "Logout" menu item.
+  - Communicates with the Django backend through the CookieRequest instance for logging out.
+  - Navigates to the login page after successful logout.
+
+These newly added widgets allows users to log in, view a list of products, and log out of the application. The CookieRequest instance manages the communication between Flutter and Django for authentication and logout. The ProductPage displays the product data, and the navigation is facilitated by the left drawer and shop card components.
+
+### Explain how you implement the checklist above step by step! (not just following the tutorial).

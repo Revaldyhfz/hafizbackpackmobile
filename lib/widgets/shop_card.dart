@@ -1,7 +1,11 @@
 // shop_card.dart
 
 import 'package:flutter/material.dart';
+import 'package:hafizbackpackmobile/screens/list_product.dart';
+import 'package:hafizbackpackmobile/screens/login.dart';
 import 'package:hafizbackpackmobile/screens/shoplist_form.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ShopItem {
   final String title;
@@ -18,10 +22,11 @@ class ShopCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Material(
       color: item.color, // Use the specified color for each button
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
@@ -32,6 +37,30 @@ class ShopCard extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const ShopFormPage()),
             );
           }
+          else if (item.title == "View Products") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ProductPage()));
+      }
+      else if (item.title == "Logout") {
+        final response = await request.logout(
+            
+            "http://localhost:8000//auth/logout/");
+        String message = response["message"];
+        if (response['status']) {
+          String uname = response["username"];
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("$message Good bye, $uname."),
+          ));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("$message"),
+          ));
+        }
+      }
         },
         child: Container(
           padding: const EdgeInsets.all(8),

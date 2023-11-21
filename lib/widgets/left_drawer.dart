@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hafizbackpackmobile/screens/list_product.dart';
 import 'package:hafizbackpackmobile/screens/menu.dart';
 
 import 'package:hafizbackpackmobile/screens/shoplist_form.dart';
@@ -12,7 +13,7 @@ class LeftDrawer extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.indigo,
+              color: Colors.teal,
             ),
             child: Column(
               children: [
@@ -53,6 +54,17 @@ class LeftDrawer extends StatelessWidget {
                   ));
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Product List'),
+            onTap: () {
+            // Route menu to product page
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProductPage()),
+            );
+        },
+    ),
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
             title: const Text('Add Product'),
