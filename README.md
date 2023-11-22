@@ -440,3 +440,71 @@ onTap: () {
 These newly added widgets allows users to log in, view a list of products, and log out of the application. The CookieRequest instance manages the communication between Flutter and Django for authentication and logout. The ProductPage displays the product data, and the navigation is facilitated by the left drawer and shop card components.
 
 ### Explain how you implement the checklist above step by step! (not just following the tutorial).
+
+1. Create a login page in the Flutter project.
+  - Installation:
+
+    - Run the following commands in the Terminal to install Flutter packages provided by the teaching assistant team:
+```
+flutter pub add provider
+flutter pub add pbp_django_auth
+```
+
+  - Implementation in the Root Widget (MyApp):
+
+    - Modify the root widget (e.g., `MyApp`) to use the Provider package.
+    - Add a new Provider object in the create method to share an instance of CookieRequest with all components in the application.
+
+  - Create a Login Screen:
+
+    - Create a new file named `login.dart` in the screens folder.
+    - Populate `login.dart` with the provided code for a login screen, including text fields for username and password, a login button, and authentication logic.
+
+  - Adjust the Main Application Entry Point:
+
+    - In the `main.dart` file, replace home: `MyHomePage()` with home: `LoginPage()` in the MaterialApp widget.
+  - These changes enable the use of the `pbp_django_auth` package for authentication in my Flutter application, with a focus on implementing a login screen.
+
+2. Create a custom model according to your Django application project.
+
+  1. JSON Data Retrieval:
+
+    - Open the JSON endpoint created in a previous tutorial.
+
+  2. Quicktype Model Creation:
+
+    - Copy the JSON data.
+    - Visit the Quicktype website.
+    - Configure Quicktype settings:
+      1. Setup name: `Product`
+      2. Source type: `JSON`
+      3. Language: `Dart`
+    - Paste the JSON data into the provided textbox on Quicktype.
+    - Click "Copy Code" on Quicktype.
+
+  3. Model Implementation in Flutter:
+
+    - Create a new file named product.dart in the lib/models folder of your Flutter project.
+    - Paste the code copied from Quicktype into this file.
+
+3. Create a page containing a list of all items available at the JSON endpoint in Django that you have deployed.
+
+1. `list_product.dart`:
+  - This Dart file defines a `ProductPage` widget that retrieves a list of products from a Django app's JSON endpoint. Key functionalities include:
+
+    - Utilizes the `http` package to make an HTTP GET request to the specified URL.
+    - Parses the JSON response and converts it into a list of `Product` objects.
+    - Implements a `FutureBuilder` widget to handle asynchronous data loading.
+    - Displays a loading indicator while data is being fetched.
+    - If data is available, renders a ListView of products, each wrapped in an InkWell for tap navigation.
+    - Navigates to a `DetailPage` when a product is tapped, passing the selected product as a parameter.
+
+2. `details.dart`:
+  - This Dart file defines a `DetailPage` widget that displays detailed information about a selected product. Key elements include:
+
+    - Takes a `Product` object as a parameter to display its details.
+    - Renders a scaffold with an app bar, left drawer, and body.
+    - Displays product details such as name, amount, fruit type, and description.
+    - Includes an "Back to Item List" button that navigates back to the product list page when pressed.
+
+- Overall, these files work together to create a Flutter application that fetches and displays a list of products, allowing users to view detailed information about each product.
